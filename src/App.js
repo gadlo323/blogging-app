@@ -3,18 +3,19 @@ import "./dataBase.js";
 import "./App.css";
 import TwiterForm from "./components/twiterForm.jsx";
 import TwiteeList from "./components/twiteeList.jsx";
-import { AllData, saveTwitte } from "./dataBase.js";
+import { getTweet, submitTweet } from "./dataBase.js";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       twittes: [],
+      loading: true,
     };
   }
 
   async componentDidMount() {
-    let item = await AllData();
+    let item = await getTweet();
     if (item.length > 0) {
       this.setState(() => {
         return {
@@ -28,7 +29,7 @@ class App extends React.Component {
     this.setState((state) => {
       return { twittes: [twitee, ...state.twittes] };
     });
-    saveTwitte(twitee);
+    submitTweet(twitee);
   }
 
   render() {

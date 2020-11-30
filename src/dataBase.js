@@ -1,41 +1,20 @@
-import localforage from "localforage";
-
-let twittes = localforage.createInstance({
-  name: "TwitterDb",
-});
-export const AllData = async () => {
-  let arr = [];
-  await twittes
-    .iterate(function (value, key, iterationNumber) {
-      arr.push(value);
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
-  return arr.sort((prev, next) => {
-    return new Date(next.createdAt) - new Date(prev.createdAt);
-  });
-};
-
-export const saveTwitte = (item) => {
-  twittes.setItem(item.id, item).catch(function (err) {
+import axios from "axios";
+const url =
+  "https://micro-blogging-dot-full-stack-course-services.ew.r.appspot.com/tweet";
+export const getTweet = async () => {
+  try {
+    const response = await axios.get(`${url}`);
+    const data = await response.data;
+    return data.tweets;
+  } catch (err) {
     console.log(err);
-  });
+  }
 };
 
-export const updateDb = (id, newItem) => {
-  twittes.getItem(id).then(function (item) {
-    item.id = id;
-    item.noteTitle = newItem.noteTitle;
-    item.noteVal = newItem.noteVal;
-    item.updateDate = newItem.updateDate;
-    item.dateReminder = newItem.dateReminder;
-    localforage.setItem(id, item);
-  });
-};
-
-export const removeItemdb = (id) => {
-  twittes.removeItem(id).catch(function (err) {
-    console.log(err);
-  });
+export const submitTweet = async (newTweet) => {
+  try {
+    return axios.post(url, newTweet);
+  } catch (err) {
+    alert(err);
+  }
 };

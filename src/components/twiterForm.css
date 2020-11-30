@@ -11,12 +11,8 @@
   display: flex;
   padding: 2rem;
 }
-.bottom-form {
-  align-self: flex-end;
-}
+
 .twitee-field {
-  display: flex;
-  flex-wrap: wrap;
   padding: 1rem 3rem;
   font-size: 2rem;
   background-color: transparent;
@@ -24,13 +20,25 @@
   border: none;
   width: 100%;
   outline: none;
-}
-.twitee-field:focus {
-  border-bottom: 1px solid white;
+  display: block;
+  resize: none;
 }
 
 .bottom-form {
   padding: 1rem;
+  justify-content: space-between;
+}
+.eroor-field {
+  border: none;
+  background-color: #f8d7da;
+  font-size: 1.6rem;
+  color: #721c24;
+}
+.error {
+  padding: 0.5rem;
+}
+.remove {
+  visibility: hidden;
 }
 .submit-twitee {
   background-color: #007bff;
