@@ -1,0 +1,47 @@
+.wreppar-top {
+  padding: 2rem;
+}
+.twitte-form {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid silver;
+}
+.top-form,
+.bottom-form {
+  display: flex;
+  padding: 2rem;
+}
+.bottom-form {
+  align-self: flex-end;
+}
+.twitee-field {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem 3rem;
+  font-size: 2rem;
+  background-color: transparent;
+  color: white;
+  border: none;
+  width: 100%;
+  outline: none;
+}
+.twitee-field:focus {
+  border-bottom: 1px solid white;
+}
+
+.bottom-form {
+  padding: 1rem;
+}
+.submit-twitee {
+  background-color: #007bff;
+  padding: 0.5rem 2rem;
+  color: white;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  outline: none;
+}
+.submit-twitee:disabled {
+  background-color: #364c62;
+  cursor: no-drop;
+}

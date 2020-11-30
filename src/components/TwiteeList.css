@@ -1,0 +1,7 @@
+.all-twitees {
+  /* min-height: 20vh; */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}

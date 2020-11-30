@@ -1,0 +1,22 @@
+.twitte-item {
+  background-color: white;
+  list-style: none;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  font-size: 1.4rem;
+  background: #343a40;
+  margin-bottom: 1.5rem;
+}
+.top {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem;
+  color: #6c757d;
+}
+.bootom {
+  padding: 1rem;
+  display: flex;
+  align-self: flex-start;
+  color: white;
+}
