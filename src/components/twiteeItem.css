@@ -20,3 +20,6 @@
   align-self: flex-start;
   color: white;
 }
+.bootom p {
+  word-break: break-all;
+}

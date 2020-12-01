@@ -1,16 +1,22 @@
-
+import {ListTweets} from '../conteaxts/listTweets.js'
 import { TwitteItem } from './twiteeItem.jsx';
 import './TwiteeList.css'
-function TwiteeList(props){
-        return(
+function TwiteeList(){
+    return(
+    <ListTweets.Consumer>
+     {(context)=>{
+         return(
             <div className="all-twitees">
             <ul className="list-twitees">
-                {props.Twittes.map((item) =>(
+                { context.twittes.map((item) =>(
                     <TwitteItem key={item.id} user={item.userName} text={item.content} createdAt={item.date}/>
                 ))}
             </ul>
-         </div>
-        );
+         </div>  
+         )
+     }}
+    </ListTweets.Consumer>
+    );
 }
 
 export default TwiteeList

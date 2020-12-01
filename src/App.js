@@ -1,4 +1,5 @@
-import React, { Children } from "react";
+import React from "react";
+import { ListTweets } from "./conteaxts/listTweets.js";
 import "./dataBase.js";
 import "./App.css";
 import TwiterForm from "./components/twiterForm.jsx";
@@ -18,24 +19,24 @@ class App extends React.Component {
     this.state = {
       twittes: [],
       loading: true,
+      senTweet: this.handleNewtwitee,
     };
   }
 
-  async componentDidMount() {
-    let item = await getTweet();
-    if (item.length > 0) {
-      this.setState(() => {
-        return {
-          twittes: item,
-        };
-      });
-    }
+  componentDidMount() {
+    setInterval(async () => {
+      let item = await getTweet();
+      if (item.length > 0) {
+        this.setState(() => {
+          return {
+            twittes: item,
+          };
+        });
+      }
+    }, 2000);
   }
 
   handleNewtwitee(twitee) {
-    this.setState((state) => {
-      return { twittes: [twitee, ...state.twittes] };
-    });
     submitTweet(twitee);
   }
 
@@ -45,12 +46,12 @@ class App extends React.Component {
         <nav className="nav-bar">
           <ul className="all-pages">
             <li>
-              <NavLink exact to to="/" activeClassName="active">
+              <NavLink exact to="/" activeClassName="active">
                 Home
               </NavLink>
             </li>
             <li>
-              <NavLink exact to to="/profile" activeClassName="active">
+              <NavLink exact to="/profile" activeClassName="active">
                 Profile
               </NavLink>
             </li>
@@ -62,7 +63,14 @@ class App extends React.Component {
               <TwiterForm
                 onNewTwitee={(twitee) => this.handleNewtwitee(twitee)}
               />
-              <TwiteeList Twittes={this.state.twittes} />
+
+              <ListTweets.Provider
+                value={{
+                  twittes: this.state.twittes,
+                }}
+              >
+                <TwiteeList />
+              </ListTweets.Provider>
             </div>
           </Route>
           <Route path="/profile">
