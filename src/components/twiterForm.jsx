@@ -1,8 +1,10 @@
 import React from 'react'
+import "../dataBase.js";
 import './twiterForm.css'
 import { css } from "@emotion/react";
 import { HashLoader} from "react-spinners";
 import { v4 as uuidv4 } from 'uuid';
+import { getUser } from '../dataBase.js';
 const override = css`
 position: fixed;
 top:30%;
@@ -15,7 +17,6 @@ class TwiterForm extends  React.Component{
         super(props);
          this.state={
             content:"",
-            userName:"",
             active : false,
             disabled:false,
             loading: false,
@@ -28,21 +29,21 @@ class TwiterForm extends  React.Component{
 
     }
 
-    onSubmit(event){
+  async  onSubmit(event){
+         event.preventDefault();
          this.setState({loading:true,disabled:true});
-        event.preventDefault();
-     const twitee = {
+         const user = await getUser();
+         const twitee = {
          id: uuidv4(),
-        content: this.state.content,
-        userName:'undefined',
-        date: new Date().toISOString()
-      };
-      this.props.onNewTwitee(twitee);
-      setTimeout(()=>{
-        this.setState({content: "",userName:"" ,loading:false,disabled:false});
-      },2000)
+         content: this.state.content,
+         userName:  user ? user :'null',
+         date: new Date().toISOString()
+         };
+         this.props.onNewTwitee(twitee);
+         setTimeout(()=>{
+          this.setState({content: "",userName:"" ,loading:false,disabled:false});
+         },2000)
     }
-
 
 
     render(){

@@ -1,0 +1,64 @@
+.profile {
+  width: 70%;
+  margin: auto;
+}
+.wreppar {
+  display: flex;
+  flex-direction: column;
+  padding: 5rem;
+}
+.profile-form {
+  display: flex;
+  flex-direction: column;
+}
+.top-form-profile {
+  display: flex;
+  flex-direction: column;
+}
+.profile-field {
+  width: 50%;
+  padding: 1rem;
+  color: white;
+  background-color: transparent;
+  border: 2px solid #cccccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 1.6rem;
+}
+
+.top-form-profile label {
+  font-size: 1.8rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 2.1rem;
+  padding: 1rem 0;
+}
+h2 {
+  font-size: 36px;
+  line-height: 42px;
+  color: #ffffff;
+  padding-bottom: 2rem;
+}
+.bottom-form-profile {
+  width: 60%;
+  display: flex;
+  align-self: flex-end;
+  padding: 1rem;
+}
+.submit-profile {
+  background-color: #007bff;
+  padding: 0.5rem 2rem;
+  color: white;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  outline: none;
+}
+
+@media (max-width: 80rem) {
+  .profile-field {
+    width: 100%;
+  }
+  .bottom-form-profile {
+    width: 35%;
+  }
+}
