@@ -1,5 +1,6 @@
 import React from 'react'
 import "../dataBase.js";
+import { NewTweet } from "../conteaxts/newTweet.js";
 import './twiterForm.css'
 import { css } from "@emotion/react";
 import { HashLoader} from "react-spinners";
@@ -30,7 +31,7 @@ class TwiterForm extends  React.Component{
 
     }
 
-  async  onSubmit(event){
+  async  onSubmit(event,context){
     
          event.preventDefault();
          this.setState({loading:true,disabled:true});
@@ -41,7 +42,8 @@ class TwiterForm extends  React.Component{
          userName:  user ? user :'null',
          date: new Date().toISOString()
          };
-         this.props.onNewTwitee(twitee);
+        //  this.props.onNewTwitee(twitee);
+        context.setNewTweet(twitee)
          setTimeout(()=>{
           this.setState({content: "",loading:false,disabled:false});
          },2000)
@@ -51,10 +53,12 @@ class TwiterForm extends  React.Component{
     render(){
       
             return(
-                <div className="twitte">
-                    
+                <NewTweet.Consumer>
+                    {(context)=>{
+                        return(
+                <div className="twitte"> 
                      <div className="wreppar-top">
-                         <form className="twitte-form" onSubmit={(event)=> this.onSubmit(event)}>
+                         <form className="twitte-form" onSubmit={(event)=> this.onSubmit(event,context)}>
                              <div className="top-form">
                                  <textarea className="twitee-field" rows="5" cols="10" placeholder=
                                  "What you have in mind..."  value={this.state.content} onChange={(e)=> this.onChange(e)} required></textarea> 
@@ -74,6 +78,9 @@ class TwiterForm extends  React.Component{
                    loading={this.state.loading}
                   />
                 </div>
+                        )
+                    }}
+                </NewTweet.Consumer>
             )
     }
 }

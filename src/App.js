@@ -1,5 +1,7 @@
 import React from "react";
 import { ListTweets } from "./conteaxts/listTweets.js";
+import { NewTweet } from "./conteaxts/newTweet.js";
+
 import "./dataBase.js";
 import "./App.css";
 import TwiterForm from "./components/twiterForm.jsx";
@@ -14,17 +16,17 @@ import {
 import Profile from "./components/profile.jsx";
 
 class App extends React.Component {
+  static updateTweet;
   constructor(props) {
     super(props);
     this.state = {
       twittes: [],
       loading: true,
-      senTweet: this.handleNewtwitee,
     };
   }
 
   componentDidMount() {
-    setInterval(async () => {
+    App.updateTweet = setInterval(async () => {
       let item = await getTweet();
       if (item.length > 0) {
         this.setState(() => {
@@ -33,9 +35,11 @@ class App extends React.Component {
           };
         });
       }
-    }, 2000);
+    }, 1000);
   }
-
+  componentWillUnmount() {
+    clearInterval(App.updateTweet);
+  }
   handleNewtwitee(twitee) {
     submitTweet(twitee);
   }
@@ -60,10 +64,15 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/">
             <div className="App">
-              <TwiterForm
-                onNewTwitee={(twitee) => this.handleNewtwitee(twitee)}
-              />
-
+              <NewTweet.Provider
+                value={{
+                  setNewTweet: (tweet) => {
+                    this.handleNewtwitee(tweet);
+                  },
+                }}
+              >
+                <TwiterForm />
+              </NewTweet.Provider>
               <ListTweets.Provider
                 value={{
                   twittes: this.state.twittes,
