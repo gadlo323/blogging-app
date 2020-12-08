@@ -1,0 +1,55 @@
+.dashborad {
+  width: 50%;
+  margin: auto;
+  margin-top: 7rem;
+}
+.wolcm-user {
+  font-size: 2rem;
+  color: white;
+  padding: 1rem;
+  text-decoration: underline;
+}
+.empty-twwets {
+  font-size: 2rem;
+  padding: 2rem;
+  color: white;
+}
+.load-more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem;
+}
+.load-more-btn {
+  border: none;
+  background: transparent;
+  outline: none;
+}
+.fa-arrow-down {
+  font-size: 3rem;
+  animation: moretweets 1s linear infinite;
+  cursor: pointer;
+  color: white;
+}
+.error-more {
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 1rem;
+}
+.arrow-not-show {
+  display: none;
+}
+@media (max-width: 80rem) {
+  .dashborad {
+    width: 100%;
+    margin: auto;
+    margin-top: 8rem;
+  }
+}
+
+@keyframes moretweets {
+  100% {
+    transform: translateY(-1rem);
+  }
+}

@@ -1,0 +1,94 @@
+#signup {
+  width: 80%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+.logo-img {
+  max-width: 20rem;
+}
+
+.wrepper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  box-shadow: 3px 2px 27px 0px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: 3px 2px 27px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 3px 2px 27px 0px rgba(0, 0, 0, 0.75);
+}
+.form-sigin {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+}
+.input-field {
+  padding: 1rem 7rem;
+  margin: 1rem;
+  border: none;
+  border-radius: 2rem;
+  outline: none;
+  font-size: 2rem;
+}
+.sigin-btn {
+  padding: 1rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 2rem;
+  margin: 2rem 0;
+  background-color: rgb(57, 166, 233);
+  color: white;
+  transition: 1.5s;
+  cursor: pointer;
+  outline: none;
+}
+.sigin-google {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 2rem;
+  border: none;
+  font-size: 1.5rem;
+  background-color: #c93136;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+
+.sigin-google > img {
+  max-width: 4rem;
+  padding-left: 1rem;
+}
+
+.head-line {
+  font-size: 5rem;
+}
+
+@media (max-width: 80rem) {
+  .wrepper {
+    box-shadow: none;
+    width: 100%;
+    overflow: hidden;
+  }
+  .sigin-btn {
+    margin-left: 3rem;
+    margin-right: 2.5rem;
+  }
+  .input-field {
+    padding: 2rem;
+    border-radius: 0;
+    border-bottom: 2px solid white;
+    background-color: transparent;
+    color: white;
+    width: 100%;
+    margin: auto;
+  }
+  .logo-img {
+    margin-top: 2rem;
+    max-width: 10rem;
+  }
+}

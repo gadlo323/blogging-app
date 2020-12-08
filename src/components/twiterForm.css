@@ -32,11 +32,12 @@
   border: none;
   background-color: #f8d7da;
   font-size: 1.6rem;
-  color: #721c24;
 }
-.error {
+.error-form {
   padding: 0.5rem;
+  color: red;
 }
+
 .remove {
   visibility: hidden;
 }

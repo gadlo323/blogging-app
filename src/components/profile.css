@@ -1,6 +1,7 @@
 .profile {
   width: 70%;
   margin: auto;
+  margin-top: 7rem;
 }
 .wreppar {
   display: flex;
@@ -53,9 +54,44 @@ h2 {
   cursor: pointer;
   outline: none;
 }
+.profile-upload {
+  max-width: 20rem;
+  height: 20rem;
+  border-radius: 100%;
+}
+.profile-img {
+  height: 10rem;
+  border-radius: 10%;
+}
+.top-profile {
+  display: flex;
+  justify-content: space-between;
+}
+.btn-picimg {
+  font-size: 1.6rem;
+  color: white;
+  cursor: pointer;
+  outline: none;
+}
+.error-upload {
+  font-size: 2rem;
+  color: #f25252;
+}
+.submit-profile:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.notification {
+  font-size: 1.6rem;
+}
 
 @media (max-width: 80rem) {
-  .profile-field {
+  .profile {
+    width: 100%;
+  }
+  .profile-field,
+  .bottom-form-profile {
     width: 100%;
   }
   .bottom-form-profile {

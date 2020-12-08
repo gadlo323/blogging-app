@@ -1,88 +1,88 @@
-import React from 'react'
-import "../dataBase.js";
+import React, { useContext, useState } from "react";
 import { NewTweet } from "../conteaxts/newTweet.js";
-import './twiterForm.css'
+import "./twiterForm.css";
 import { css } from "@emotion/react";
-import { HashLoader} from "react-spinners";
-import { v4 as uuidv4 } from 'uuid';
-import { getUser } from '../dataBase.js';
+import { HashLoader } from "react-spinners";
+import { v4 as uuidv4 } from "uuid";
+import { useAuth } from "../conteaxts/AutoConeaxt";
 const override = css`
-position: fixed;
-top:30%;
-left:46%;
+  position: fixed;
+  top: 30%;
+  left: 46%;
   border-color: red;
 `;
-class TwiterForm extends  React.Component{
-  
-    constructor(props){
-        super(props);
-         this.state={
-            content:"",
-            active : false,
-            disabled:false,
-            loading: false,
-            newTweet:'',
-         }
-    }
-    onChange(e){
-        if(e.target.value.length <= 140)
-        this.setState({content : e.target.value, disabled:false, active:false})
-        else this.setState({disabled:true, active:true})
+const TwiterForm = () => {
+  const { currentUser } = useAuth();
+  const { setNewTweet } = useContext(NewTweet);
+  const [content, setContent] = useState("");
+  const [active, setActive] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(false);
 
+  const onChange = (e) => {
+    if (e.target.value.length <= 140) {
+      setContent(e.target.value);
+      setDisabled(false);
+      setActive(false);
+    } else {
+      setDisabled(true);
+      setActive(true);
     }
+  };
 
-  async  onSubmit(event,context){
-    
-         event.preventDefault();
-         this.setState({loading:true,disabled:true});
-         const user = await getUser();
-         const twitee = {
-         id: uuidv4(),
-         content: this.state.content,
-         userName:  user ? user :'null',
-         date: new Date().toISOString()
-         };
-        //  this.props.onNewTwitee(twitee);
-        context.setNewTweet(twitee)
-         setTimeout(()=>{
-          this.setState({content: "",loading:false,disabled:false});
-         },2000)
-    }
+  const onSubmit = (event) => {
+    event.preventDefault();
+    setLoading(true);
+    setDisabled(true);
+    const twitee = {
+      id: uuidv4(),
+      userId: currentUser.uid,
+      content: content,
+      date: new Date().toISOString(),
+    };
+    setNewTweet(twitee);
+    setTimeout(() => {
+      setContent("");
+      setLoading(false);
+      setDisabled(false);
+    }, 2000);
+  };
 
-
-    render(){
-      
-            return(
-                <NewTweet.Consumer>
-                    {(context)=>{
-                        return(
-                <div className="twitte"> 
-                     <div className="wreppar-top">
-                         <form className="twitte-form" onSubmit={(event)=> this.onSubmit(event,context)}>
-                             <div className="top-form">
-                                 <textarea className="twitee-field" rows="5" cols="10" placeholder=
-                                 "What you have in mind..."  value={this.state.content} onChange={(e)=> this.onChange(e)} required></textarea> 
-                            </div>
-                             <div className="bottom-form">
-                                 <div className={this.state.active?"eroor-field":"remove"}>
-                                     <p className="error">The tweet can't contain more then 140 chars.</p>
-                                 </div>
-                                 <button type="submit" className="submit-twitee" disabled={this.state.disabled}>Tweet</button>
-                             </div>
-                         </form>
-                     </div>    
-                  <HashLoader
-                   css={override}
-                   size={100}
-                   color={"#123abc"}
-                   loading={this.state.loading}
-                  />
-                </div>
-                        )
-                    }}
-                </NewTweet.Consumer>
-            )
-    }
-}
+  return (
+    <div className="twitte">
+      <div className="wreppar-top">
+        <form className="twitte-form" onSubmit={(event) => onSubmit(event)}>
+          <div className="top-form">
+            <textarea
+              className="twitee-field"
+              rows="5"
+              cols="10"
+              placeholder="What you have in mind..."
+              value={content}
+              onChange={(e) => onChange(e)}
+              required
+            ></textarea>
+          </div>
+          <div className="bottom-form">
+            <div className={active ? "eroor-field" : "remove"}>
+              <p className="error-form">
+                The tweet can't contain more then 140 chars.
+              </p>
+            </div>
+            <button type="submit" className="submit-twitee" disabled={disabled}>
+              Tweet
+            </button>
+          </div>
+        </form>
+      </div>
+      <HashLoader
+        css={override}
+        size={100}
+        color={"#123abc"}
+        loading={loading}
+      />
+    </div>
+  );
+};
 
 export default TwiterForm;
