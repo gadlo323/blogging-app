@@ -9,6 +9,7 @@ export const TwitteItem = (props) => {
       </div>
       <div className="bootom">
         <p>{text}</p>
+        <img className="user-img" src="./programmer.png" alt="" />
       </div>
     </li>
   );

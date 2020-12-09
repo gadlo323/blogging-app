@@ -65,14 +65,17 @@ const Deshborad = () => {
         .startAfter(lastTweet.date)
         .limit(10)
         .get()
-        .then((query) => {
+        .then(async (query) => {
           if (query.docs.length > 0) {
             SeterrorLoadmore(false);
             const lastdoc = query.docs[query.docs.length - 1].data();
-            const lists = query.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
+            const lists = await Promise.all(
+              query.docs.map(async (doc) => ({
+                id: doc.id,
+                username: await userInfo(doc.data().userId),
+                ...doc.data(),
+              }))
+            );
             setTwittes((prevTweets) => [...prevTweets, ...lists]);
             setLastweet(lastdoc);
           } else {

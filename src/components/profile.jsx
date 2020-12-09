@@ -26,23 +26,32 @@ const Profile = () => {
 
   const onSubmit = (event) => {
     event.preventDefault();
-    setLoader(true);
+
     if (userName.length > 2) {
+      setLoader(true);
       setDisabled(false);
       setTimeout(() => {
         updateProfilename(userName);
         updateDb();
-        notify("user name changed");
+        notify(`Your username has been successfully changed to ${userName}`);
         setLoader(false);
       }, 2000);
     }
 
     if (urlImg) {
+      setLoader(true);
       setDisabled(true);
       const storgeRef = firebase.storage().ref("/userImages");
       const upload = storgeRef.child(currentUser.uid);
       upload.put(urlUpload).then((url) => {
-        notify("Image uploaded");
+        setLoader(false);
+        if (url._delegate.state === "success") {
+          notify("Your profile picture has been successfully modified");
+          setTimeout(() => window.location.reload(), 5000);
+        } else
+          notifyError(
+            "Unfortunately the image was not uploaded successfully.Please try another time !"
+          );
       });
       setTimeout(() => {
         upload.getDownloadURL().then(function (url) {
@@ -68,7 +77,7 @@ const Profile = () => {
     } else {
       setUrlimg("");
       setDisabled(true);
-      notifyError();
+      notifyError("Please select an image file (png, jpeg)!");
       setError("Please select an image file (png, jpeg)!");
     }
   };
@@ -81,9 +90,10 @@ const Profile = () => {
       .set({ username: userName })
       .catch((error) => console.error("Error: ", error));
   };
-  const notify = (type) => toast.success(` ${type} successfully  !`);
-  const notifyError = () =>
-    toast.error("Please select an image file (png, jpeg)!", {
+
+  const notify = (message) => toast.success(message);
+  const notifyError = (error) =>
+    toast.error(error, {
       position: "top-right",
       autoClose: 5000,
       hideProgressBar: false,
